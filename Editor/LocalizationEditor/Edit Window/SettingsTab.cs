@@ -45,6 +45,14 @@ namespace LS.Localiser.Editor
                 FileUtils.FindOrCreateSettingsFile(DefaultLanguage.ToString(), format.ToString());
             }
         }
+
+        public void Start()
+        {
+            if (FileUtils.ReadSettingsFile(out SystemLanguage language, out string format))
+            {
+                DefaultLanguage = (int)language;
+            }
+        }
         #endregion
     }
 }

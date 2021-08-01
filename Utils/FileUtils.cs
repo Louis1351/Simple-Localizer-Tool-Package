@@ -22,15 +22,12 @@ namespace LS.Localiser.Utils
             CreateFolder("/Resources");
             CreateFolder("/Resources/Languages");
 
-            if (File.Exists(path))
-            {
-                File.WriteAllText(path, _language + " " + _format);
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-            }
+            File.WriteAllText(path, _language + " " + _format);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
 
-        public static void ReadSettingsFile(out SystemLanguage _language, out string _format)
+        public static bool ReadSettingsFile(out SystemLanguage _language, out string _format)
         {
             string path = Application.dataPath + "/Resources/Languages/Settings.txt";
             _language = SystemLanguage.English;
@@ -42,7 +39,9 @@ namespace LS.Localiser.Utils
                 string[] contents = content.Split(' ');
                 _language = (SystemLanguage)int.Parse(contents[0]);
                 _format = contents[1];
+                return true;
             }
+            return false;
         }
         public static void FindOrCreateLanguageFile(string _fileName)
         {

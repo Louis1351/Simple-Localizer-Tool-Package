@@ -123,6 +123,9 @@ namespace LS.Localiser.Editor
                     translationTab.OnGUI();
                     break;
                 case Tab.settings:
+                    if (change)
+                        settingsTab.Start();
+
                     settingsTab.OnGUI();
                     break;
             }
