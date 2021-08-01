@@ -1,0 +1,20 @@
+{
+    "name": "Ls.SimpleLocalizerTool.Editor",
+    "rootNamespace": "LS.Localiser",
+    "references": [
+        "GUID:e6c8c585ccf3c9b43b706d2113aa0fc2",
+        "GUID:02b87bb5bbb13bb41ab70c9df5b0a2d1",
+        "GUID:478a2357cc57436488a56e564b08d223"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
