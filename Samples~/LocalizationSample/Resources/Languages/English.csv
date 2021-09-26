@@ -3,5 +3,5 @@
 "Text 1";"English";"";"";
 "Text 2";"Play";"";"";
 "Text 4";"Quit";"";"";
-"flag";"";"Assets/Samples/Simple Localizer Tool/1.2.3/Demo Scene with two languages already set/BundledAssets/localizerbundle/Sprites/English_Flag.png";"";
-"Text 0";"Change language";"";"Assets/Samples/Simple Localizer Tool/1.2.3/Demo Scene with two languages already set/BundledAssets/localizerbundle/Audio/Hello.aiff";
+"flag";"";"Assets/BundledAssets/localizerbundle/Sprites/English_Flag.png";"";
+"Text 0";"Change language";"";"Assets/BundledAssets/localizerbundle/Audio/Hello.aiff";

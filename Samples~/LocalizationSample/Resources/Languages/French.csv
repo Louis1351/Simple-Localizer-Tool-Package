@@ -3,5 +3,5 @@
 "Text 1";"Français";"";"";
 "Text 3";"Crédit";"";"";
 "Text 4";"Quitter";"";"";
-"Text 0";"Changer de langue";"";"Assets/Samples/Simple Localizer Tool/1.2.3/Demo Scene with two languages already set/BundledAssets/localizerbundle/Audio/Salut.mp3";
-"flag";"";"Assets/Samples/Simple Localizer Tool/1.2.3/Demo Scene with two languages already set/BundledAssets/localizerbundle/Sprites/French_Flag.png";"";
+"Text 0";"Changer de langue";"";"Assets/BundledAssets/localizerbundle/Audio/Salut.mp3";
+"flag";"";"Assets/BundledAssets/localizerbundle/Sprites/French_Flag.png";"";
