@@ -168,6 +168,14 @@ namespace LS.Localiser.CSV
             }
             return value;
         }
+        public static bool ContainKey(string key, SystemLanguage language)
+        {
+            if (dictionaries != null && dictionaries[language] != null)
+            {
+                return dictionaries[language].ContainsKey(key);
+            }
+            return false;
+        }
 
         public static LocalizationItem GetLocalisedValue(string key)
         {

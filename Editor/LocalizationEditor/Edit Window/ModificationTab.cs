@@ -152,12 +152,12 @@ namespace LS.Localiser.Editor
             }
 
             sprite = EditorGUILayout.ObjectField(sprite, typeof(Sprite), true);
-            if (currentItem.spritePath != "" && sprite == null)
-                EditorGUILayout.HelpBox("Sprite Reference lost", MessageType.Warning);
+            if (LocalizationSystem.ContainKey(key, language) && currentItem.spritePath != "" && sprite == null)
+                EditorGUILayout.HelpBox("Sprite Reference lost " + currentItem.spritePath, MessageType.Warning);
 
             audioClip = EditorGUILayout.ObjectField(audioClip, typeof(AudioClip), true);
-            if (currentItem.clipPath != "" && audioClip == null)
-                EditorGUILayout.HelpBox("Audio Clip Reference lost", MessageType.Warning);
+            if (LocalizationSystem.ContainKey(key, language) && currentItem.clipPath != "" && audioClip == null)
+                EditorGUILayout.HelpBox("Audio Clip Reference lost" + currentItem.clipPath, MessageType.Warning);
 
             if (!findKey)
             {
