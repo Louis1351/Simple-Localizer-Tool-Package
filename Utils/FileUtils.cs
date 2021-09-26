@@ -23,8 +23,17 @@ namespace LS.Localiser.Utils
             CreateFolder("/Resources/Languages");
 
             File.WriteAllText(path, _language + " " + _format);
+
+#if UNITY_EDITOR
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
+#endif
+        }
+
+        public static bool FindLanguageFile(string _fileName)
+        {
+            string path = Application.dataPath + "/Resources/Languages/" + _fileName + ".csv";
+            return File.Exists(path);
         }
 
         public static bool ReadSettingsFile(out SystemLanguage _language, out string _format)
@@ -43,6 +52,7 @@ namespace LS.Localiser.Utils
             }
             return false;
         }
+
         public static void FindOrCreateLanguageFile(string _fileName)
         {
             string path = Application.dataPath + "/Resources/Languages/" + _fileName + ".csv";
@@ -53,8 +63,10 @@ namespace LS.Localiser.Utils
             if (!File.Exists(path))
             {
                 File.WriteAllText(path, "");
+#if UNITY_EDITOR
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
+#endif
             }
         }
 
@@ -64,8 +76,10 @@ namespace LS.Localiser.Utils
             if (File.Exists(path))
             {
                 File.WriteAllText(path, "");
+#if UNITY_EDITOR
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
+#endif
             }
         }
 
@@ -77,7 +91,9 @@ namespace LS.Localiser.Utils
             {
                 File.Delete(path);
                 File.Delete(pathMeta);
+#if UNITY_EDITOR
                 AssetDatabase.Refresh();
+#endif
             }
         }
     }

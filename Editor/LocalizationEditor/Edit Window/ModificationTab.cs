@@ -19,9 +19,14 @@ namespace LS.Localiser.Editor
         private string key = "";
         [SerializeField]
         private string textArea = "";
+        [SerializeField]
+        private UnityEngine.Object audioClip = null;
+        [SerializeField]
+        private UnityEngine.Object sprite = null;
         private Vector2 scrollPos1 = Vector2.zero;
         private Vector2 scrollPos2 = Vector2.zero;
-        private Dictionary<string, string> dictionary;
+        private Dictionary<string, LocalizationSystem.LocalizationItem> dictionary;
+        private LocalizationSystem.LocalizationItem currentItem;
         #endregion
 
         #region Accessors
@@ -37,10 +42,15 @@ namespace LS.Localiser.Editor
             window = _window;
         }
         #region Public Methods
+
         public void AddText(string _key)
         {
+
             key = _key;
-            textArea = LocalizationSystem.GetLocalisedValue(_key, (SystemLanguage)popup);
+            currentItem = LocalizationSystem.GetLocalisedValue(_key, (SystemLanguage)popup);
+            textArea = currentItem.text;
+            sprite = AssetDatabase.LoadAssetAtPath<Sprite>(currentItem.spritePath);
+            audioClip = AssetDatabase.LoadAssetAtPath<AudioClip>(currentItem.clipPath);
         }
 
         public void OnGUI()
@@ -70,6 +80,7 @@ namespace LS.Localiser.Editor
             }
             GUILayout.EndHorizontal();
 
+
             bool findKey = false;
             if (key != "" && GUI.GetNameOfFocusedControl() == "key")
             {
@@ -78,7 +89,7 @@ namespace LS.Localiser.Editor
                 {
                     findKey = false;
 
-                    string tmpArea = LocalizationSystem.GetLocalisedValue(key, language);
+                    string tmpArea = LocalizationSystem.GetLocalisedValue(key, language).text;
 
                     if (tmpArea != null)
                         textArea = tmpArea;
@@ -97,27 +108,31 @@ namespace LS.Localiser.Editor
                 {
 
                     int nbKey = 0;
-                    foreach (KeyValuePair<string, string> element in dictionary)
+                    foreach (KeyValuePair<string, LocalizationSystem.LocalizationItem> element in dictionary)
                     {
                         if (element.Key.ToLower().Contains(key.ToLower())
-                        || element.Value.ToLower().Contains(key.ToLower()))
+                        || element.Value.text.ToLower().Contains(key.ToLower()))
                         {
                             if (!findKey)
                                 scrollPos1 = EditorGUILayout.BeginScrollView(scrollPos1);
 
                             findKey = true;
                             EditorGUILayout.BeginHorizontal();
-                            string value = Regex.Replace(element.Value, @"\t|\n|\r", "").Substring(0, Mathf.Min(element.Value.Length, 80));
+                            string value = Regex.Replace(element.Value.text, @"\t|\n|\r", "").Substring(0, Mathf.Min(element.Value.text.Length, 80));
 
                             if (GUILayout.Button(element.Key + "\t\t" + value, buttonStyle, GUILayout.Height(25)))
                             {
                                 findKey = false;
                                 key = element.Key;
 
-                                string tmpArea = element.Value;
+                                string tmpArea = element.Value.text;
                                 if (tmpArea != null)
                                     textArea = tmpArea;
 
+
+                                sprite = AssetDatabase.LoadAssetAtPath<Sprite>(element.Value.spritePath);
+                                audioClip = AssetDatabase.LoadAssetAtPath<AudioClip>(element.Value.clipPath);
+                                currentItem = element.Value;
                                 GUI.FocusControl(null);
                                 break;
                             }
@@ -136,6 +151,14 @@ namespace LS.Localiser.Editor
 
             }
 
+            sprite = EditorGUILayout.ObjectField(sprite, typeof(Sprite), true);
+            if (currentItem.spritePath != "" && sprite == null)
+                EditorGUILayout.HelpBox("Sprite Reference lost", MessageType.Warning);
+
+            audioClip = EditorGUILayout.ObjectField(audioClip, typeof(AudioClip), true);
+            if (currentItem.clipPath != "" && audioClip == null)
+                EditorGUILayout.HelpBox("Audio Clip Reference lost", MessageType.Warning);
+
             if (!findKey)
             {
                 EditorGUILayout.BeginVertical();
@@ -145,9 +168,13 @@ namespace LS.Localiser.Editor
 
                 if (popup != lastPopup)
                 {
+                    currentItem = LocalizationSystem.GetLocalisedValue(key, language);
                     GUI.FocusControl(null);
                     lastPopup = popup;
-                    textArea = LocalizationSystem.GetLocalisedValue(key, language);
+
+                    textArea = currentItem.text;
+                    sprite = AssetDatabase.LoadAssetAtPath<Sprite>(currentItem.spritePath);
+                    audioClip = AssetDatabase.LoadAssetAtPath<AudioClip>(currentItem.clipPath);
                 }
 
                 textArea = TextArea(textArea, "Text", EditorStyles.textArea);
@@ -160,17 +187,20 @@ namespace LS.Localiser.Editor
                 {
                     var dictionnary = LocalizationSystem.GetDictionary(language);
 
+                    string spritePath = AssetDatabase.GetAssetPath(sprite);
+                    string audioPath = AssetDatabase.GetAssetPath(audioClip);
+
                     if (dictionnary != null && dictionnary.ContainsKey(key))
                     {
                         if (EditorUtility.DisplayDialog("Overwrite Key " + key + "?", "This will overwrite the element from localization, are you sure?", "Ok", "Cancel"))
                         {
-                            LocalizationSystem.Replace(key, textArea, language);
+                            LocalizationSystem.Replace(key, textArea, spritePath, audioPath, language);
                             ClearTexts();
                         }
                     }
                     else
                     {
-                        LocalizationSystem.Add(key, textArea, language);
+                        LocalizationSystem.Add(key, textArea, spritePath, audioPath, language);
                         ClearTexts();
                     }
                 }
@@ -259,6 +289,8 @@ namespace LS.Localiser.Editor
         {
             key = "";
             textArea = "";
+            sprite = null;
+            audioClip = null;
             GUI.FocusControl(null);
         }
     }

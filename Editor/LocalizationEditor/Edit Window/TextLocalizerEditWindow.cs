@@ -145,7 +145,7 @@ namespace LS.Localiser.Editor
 
 
         #region Public Methods
-        [MenuItem("Window/Localizer")]
+        [MenuItem("Localization/Edit")]
         public static void Open()
         {
             TextLocalizerEditWindow window = ScriptableObject.CreateInstance<TextLocalizerEditWindow>();

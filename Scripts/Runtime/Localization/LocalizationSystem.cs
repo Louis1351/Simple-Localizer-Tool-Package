@@ -2,11 +2,25 @@ using UnityEngine;
 using System.Collections.Generic;
 using LS.Localiser.Utils;
 using LS.Localiser.Runtime;
+using System;
 
 namespace LS.Localiser.CSV
 {
     public class LocalizationSystem
     {
+        public struct LocalizationItem
+        {
+            public string text;
+            public string spritePath;
+            public string clipPath;
+
+            public LocalizationItem(string text, string spritePath, string clipPath)
+            {
+                this.text = text;
+                this.spritePath = spritePath;
+                this.clipPath = clipPath;
+            }
+        }
 
         #region Public Fields
 
@@ -16,7 +30,7 @@ namespace LS.Localiser.CSV
 
 
         #region Private Fields
-        private static Dictionary<SystemLanguage, Dictionary<string, string>> dictionaries;
+        private static Dictionary<SystemLanguage, Dictionary<string, LocalizationItem>> dictionaries;
         private static bool alreadyLoaded = false;
         #endregion
 
@@ -36,7 +50,7 @@ namespace LS.Localiser.CSV
         #region Public Methods
         public static void ChangeLanguage(SystemLanguage language)
         {
-            Dictionary<string, string> tmpDictionnary = null;
+            Dictionary<string, LocalizationItem> tmpDictionnary = null;
 
             useLanguage = language;
             tmpDictionnary = GetDictionary(useLanguage);
@@ -44,18 +58,15 @@ namespace LS.Localiser.CSV
             if (tmpDictionnary == null || tmpDictionnary.Count == 0)
                 return;
 
-            TextLocalizerUI[] components = Resources.FindObjectsOfTypeAll<TextLocalizerUI>();
-            for (int i = 0; i < components.Length; ++i)
-            {
-                components[i].Refresh();
-            }
+            RefreshSceneTexts();
+            RefreshSceneImages();
 
             PlayerPrefs.SetInt("language", (int)useLanguage);
         }
 
-        public static void ChangeToNextLanguage()
+        public static void ChangeToNextLanguage(Action callback = null)
         {
-            Dictionary<string, string> tmpDictionnary = null;
+            Dictionary<string, LocalizationItem> tmpDictionnary = null;
             int nbTries = 0;
 
             do
@@ -69,18 +80,18 @@ namespace LS.Localiser.CSV
             }
             while (tmpDictionnary == null || tmpDictionnary.Count == 0);
 
-            TextLocalizerUI[] components = Resources.FindObjectsOfTypeAll<TextLocalizerUI>();
-            for (int i = 0; i < components.Length; ++i)
-            {
-                components[i].Refresh();
-            }
+            RefreshSceneTexts();
+            RefreshSceneImages();
 
             PlayerPrefs.SetInt("language", (int)useLanguage);
+
+            if (callback != null)
+                callback.Invoke();
         }
 
         public static void ChangeToPreviousLanguage()
         {
-            Dictionary<string, string> tmpDictionnary = null;
+            Dictionary<string, LocalizationItem> tmpDictionnary = null;
             int nbTries = 0;
 
             do
@@ -99,11 +110,8 @@ namespace LS.Localiser.CSV
             }
             while (tmpDictionnary == null || tmpDictionnary.Count == 0);
 
-            TextLocalizerUI[] components = Resources.FindObjectsOfTypeAll<TextLocalizerUI>();
-            for (int i = 0; i < components.Length; ++i)
-            {
-                components[i].Refresh();
-            }
+            RefreshSceneTexts();
+            RefreshSceneImages();
 
             PlayerPrefs.SetInt("language", (int)useLanguage);
         }
@@ -114,7 +122,7 @@ namespace LS.Localiser.CSV
                 csvLoader = new CSVLoader();
 
             if (dictionaries == null)
-                dictionaries = new Dictionary<SystemLanguage, Dictionary<string, string>>();
+                dictionaries = new Dictionary<SystemLanguage, Dictionary<string, LocalizationItem>>();
 
             if (!dictionaries.ContainsKey(_language))
             {
@@ -128,7 +136,12 @@ namespace LS.Localiser.CSV
             useLanguage = Application.systemLanguage;
 
             if (PlayerPrefs.HasKey("language"))
+            {
                 useLanguage = (SystemLanguage)PlayerPrefs.GetInt("language");
+            }
+
+            RefreshSceneTexts();
+            RefreshSceneImages();
         }
 
         private static void UpdateDictionary(SystemLanguage language)
@@ -142,22 +155,23 @@ namespace LS.Localiser.CSV
             }
         }
 
-        public static string GetLocalisedValue(string key, SystemLanguage language)
+        public static LocalizationItem GetLocalisedValue(string key, SystemLanguage language)
         {
-            string value = "";
+            LocalizationItem value = new LocalizationItem();
 
             InitializeCSV(language);
 
             if (dictionaries != null && dictionaries[language] != null)
             {
-                dictionaries[language].TryGetValue(key, out value);
+                if (key != null)
+                    dictionaries[language].TryGetValue(key, out value);
             }
             return value;
         }
 
-        public static string GetLocalisedValue(string key)
+        public static LocalizationItem GetLocalisedValue(string key)
         {
-            string value = key;
+            LocalizationItem value = new LocalizationItem();
 
             if (!alreadyLoaded)
             {
@@ -167,10 +181,13 @@ namespace LS.Localiser.CSV
                 }
                 else
                 {
-                    FileUtils.ReadSettingsFile(out SystemLanguage language, out string format);
-                    useLanguage = language;
+                    if (!FileUtils.FindLanguageFile(useLanguage.ToString()))
+                    {
+                        FileUtils.ReadSettingsFile(out SystemLanguage language, out string format);
+                        useLanguage = language;
+                    }
 
-                    PlayerPrefs.SetInt("language", (int)language);
+                    PlayerPrefs.SetInt("language", (int)useLanguage);
                 }
 
                 alreadyLoaded = true;
@@ -180,14 +197,14 @@ namespace LS.Localiser.CSV
 
             if (dictionaries != null && dictionaries[useLanguage] != null)
             {
-                if (!dictionaries[useLanguage].TryGetValue(key, out value))
+                if (key != null && !dictionaries[useLanguage].TryGetValue(key, out value))
                 {
                     Debug.LogWarning("Any text found with the key \"" + key + "\" and the " + useLanguage.ToString() + " language.");
                 }
             }
             return value;
         }
-        public static void Add(string key, string value, SystemLanguage language)
+        public static void Add(string key, string value, string spritePath, string audioPath, SystemLanguage language)
         {
             if (key == "")
                 return;
@@ -204,12 +221,12 @@ namespace LS.Localiser.CSV
 
 #if UNITY_EDITOR
             FileUtils.FindOrCreateLanguageFile(language.ToString());
-            csvLoader.Add(key, value, language);
+            csvLoader.Add(key, value, spritePath, audioPath, language);
 #endif
             UpdateDictionary(language);
         }
 
-        public static void Replace(string key, string value, SystemLanguage language)
+        public static void Replace(string key, string value, string spritePath, string audioPath, SystemLanguage language)
         {
             if (key == "")
                 return;
@@ -226,7 +243,7 @@ namespace LS.Localiser.CSV
 
 #if UNITY_EDITOR
             FileUtils.FindOrCreateLanguageFile(language.ToString());
-            csvLoader.Edit(key, value, language);
+            csvLoader.Edit(key, value, spritePath, audioPath, language);
 #endif
 
             UpdateDictionary(language);
@@ -250,7 +267,7 @@ namespace LS.Localiser.CSV
             UpdateDictionary(language);
         }
 
-        public static Dictionary<string, string> GetDictionary(SystemLanguage language)
+        public static Dictionary<string, LocalizationItem> GetDictionary(SystemLanguage language)
         {
             InitializeCSV(language);
 
@@ -260,7 +277,7 @@ namespace LS.Localiser.CSV
                 return dictionaries[language];
         }
 
-        public static Dictionary<string, string> GetDictionary()
+        public static Dictionary<string, LocalizationItem> GetDictionary()
         {
             InitializeCSV(useLanguage);
 
@@ -271,6 +288,22 @@ namespace LS.Localiser.CSV
         }
         #endregion
 
+        private static void RefreshSceneTexts()
+        {
+            TextLocalizerUI[] components = Resources.FindObjectsOfTypeAll<TextLocalizerUI>();
+            for (int i = 0; i < components.Length; ++i)
+            {
+                components[i].Refresh();
+            }
+        }
+        private static void RefreshSceneImages()
+        {
+            ImageLocalizerUI[] components = Resources.FindObjectsOfTypeAll<ImageLocalizerUI>();
+            for (int i = 0; i < components.Length; ++i)
+            {
+                components[i].Refresh();
+            }
+        }
 
     }
 }

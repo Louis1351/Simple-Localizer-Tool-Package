@@ -14,7 +14,7 @@ namespace LS.Localiser.CSV
         #endregion
 
         #region Private Fields
-        private string[] lineSeparator = { "\";\"endline\"" };
+        private string[] lineSeparator = { Environment.NewLine };
         private string[] separators = { "\";\"" };
         #endregion
 
@@ -26,28 +26,47 @@ namespace LS.Localiser.CSV
 
 
         #region Public Methods
-        public Dictionary<string, string> GetDictionaryValues(SystemLanguage language)
+        public Dictionary<string, LocalizationSystem.LocalizationItem> GetDictionaryValues(SystemLanguage language)
         {
             TextAsset csvFile = Resources.Load<TextAsset>("Languages/" + language.ToString());
 
             if (!csvFile)
                 return null;
 
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            Dictionary<string, LocalizationSystem.LocalizationItem> dictionary = new Dictionary<string, LocalizationSystem.LocalizationItem>();
             string[] lines = csvFile.text.Split(lineSeparator, StringSplitOptions.None);
 
             for (int i = 0; i < lines.Length - 1; ++i)
             {
                 string line = lines[i];
-                string[] fields = line.Split(separators, StringSplitOptions.None);
-                dictionary.Add(fields[0].TrimStart('\r', '\n', '\"'), fields[1].TrimEnd('\r', '\n', '\"', ';'));
+
+                if (line != "")
+                {
+                    string[] fields = line.Split(separators, StringSplitOptions.None);
+
+                    string key = fields[0].TrimStart('\r', '\n', '\"');
+                    string text = fields[1].TrimEnd('\r', '\n', '\"', ';');
+                    string spritepath = fields[2].TrimEnd('\r', '\n', '\"', ';');
+                    string audiopath = fields[3].TrimEnd('\r', '\n', '\"', ';');
+
+
+                  /*  AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, bundleName));
+                    AudioClip clip = localAssetBundle.LoadAsset<AudioClip>("");
+                    Sprite sprite = localAssetBundle.LoadAsset<Sprite>("");*/
+
+                    /*  AudioClip clip = (AudioClip)AssetDatabase.LoadAssetAtPath(audiopath, typeof(AudioClip));
+                      Sprite sprite = (Sprite)AssetDatabase.LoadAssetAtPath(spritepath, typeof(Sprite));*/
+
+                    dictionary.Add(key, new LocalizationSystem.LocalizationItem(text, spritepath, audiopath));
+                   // localAssetBundle.Unload(false);
+                }
             }
 
             return dictionary;
         }
 
 #if UNITY_EDITOR
-        public void Add(string key, string value, SystemLanguage language)
+        public void Add(string key, string value, string spritePath, string audioPath, SystemLanguage language)
         {
             TextAsset csvFile = Resources.Load<TextAsset>("Languages/" + language.ToString());
 
@@ -55,7 +74,7 @@ namespace LS.Localiser.CSV
                 return;
 
             string path = AssetDatabase.GetAssetPath(csvFile);
-            string appended = string.Format("\"{0}\";\"{1}\";\"endline\"", key, value);
+            string appended = string.Format("\"{0}\";\"{1}\";\"{2}\";\"{3}\";", key, value, spritePath, audioPath);
 
             using (StreamWriter sw = File.AppendText(path))
             {
@@ -103,10 +122,10 @@ namespace LS.Localiser.CSV
             }
         }
 
-        public void Edit(string key, string value, SystemLanguage language)
+        public void Edit(string key, string value, string spritePath, string audioPath, SystemLanguage language)
         {
             Remove(key, language);
-            Add(key, value, language);
+            Add(key, value, spritePath, audioPath, language);
         }
 #endif
         #endregion

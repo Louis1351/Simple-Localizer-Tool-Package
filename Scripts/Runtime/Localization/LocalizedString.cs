@@ -1,4 +1,7 @@
 
+using System.IO;
+using UnityEngine;
+
 namespace LS.Localiser.CSV
 {
     [System.Serializable]
@@ -6,7 +9,7 @@ namespace LS.Localiser.CSV
     {
 
         #region Public Fields
-        public string key;
+        public string key = "";
         #endregion
 
 
@@ -15,11 +18,33 @@ namespace LS.Localiser.CSV
 
 
         #region Accessors
-        public string value
+        public string textValue
         {
             get
             {
-                return LocalizationSystem.GetLocalisedValue(key);
+                return LocalizationSystem.GetLocalisedValue(key).text;
+            }
+        }
+        public Sprite spriteValue
+        {
+            get
+            {
+                AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, "localizerbundle"));
+                Sprite sprite = localAssetBundle.LoadAsset<Sprite>(LocalizationSystem.GetLocalisedValue(key).spritePath);
+                localAssetBundle.Unload(false);
+                return sprite;
+                //  return LocalizationSystem.GetLocalisedValue(key).sprite;
+            }
+        }
+        public AudioClip clipValue
+        {
+            get
+            {
+                AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, "localizerbundle"));
+                AudioClip clip = localAssetBundle.LoadAsset<AudioClip>(LocalizationSystem.GetLocalisedValue(key).clipPath);
+                localAssetBundle.Unload(false);
+                return clip;
+                // return LocalizationSystem.GetLocalisedValue(key).clip;
             }
         }
         #endregion

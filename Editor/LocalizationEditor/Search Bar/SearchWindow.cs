@@ -12,7 +12,7 @@ namespace LS.Localiser.Editor
     public class SearchWindow : EditorWindow
     {
         private Vector2 scrollpos = Vector2.zero;
-        private Dictionary<string, string> dictionary = null;
+        private Dictionary<string, LocalizationSystem.LocalizationItem> dictionary = null;
         private LocalizedSearchBarEditor parent = null;
 
         public void Init(LocalizedSearchBarEditor parent, Vector2 position)
@@ -35,6 +35,7 @@ namespace LS.Localiser.Editor
             GUILayout.BeginHorizontal(GUI.skin.FindStyle("Toolbar"));
 
             GUI.SetNextControlName("key");
+
             parent.Key.stringValue = GUILayout.TextField(parent.Key.stringValue, GUI.skin.FindStyle("ToolbarSeachTextField"));
 
             if (GUILayout.Button("", GUI.skin.FindStyle("ToolbarSeachCancelButton")))
@@ -51,9 +52,17 @@ namespace LS.Localiser.Editor
 
             if ((Event.current.keyCode == KeyCode.Return || Event.current.keyCode == KeyCode.KeypadEnter))
             {
-                string tmpArea = LocalizationSystem.GetLocalisedValue(parent.Key.stringValue, language);
+                LocalizationSystem.LocalizationItem item = LocalizationSystem.GetLocalisedValue(parent.Key.stringValue, language);
 
-                parent.Component.RefreshEditor(tmpArea);
+                TextLocalizerUI textUI = (parent.Component as TextLocalizerUI);
+                ImageLocalizerUI imageUI = (parent.Component as ImageLocalizerUI);
+
+                if (textUI)
+                    textUI.RefreshEditor(item.text);
+
+                if (imageUI)
+                    imageUI.RefreshEditor(AssetDatabase.LoadAssetAtPath<Sprite>(item.spritePath));
+
                 EditorUtility.SetDirty(parent.Component);
                 GUI.FocusControl(null);
             }
@@ -68,19 +77,33 @@ namespace LS.Localiser.Editor
             if (dictionary != null && dictionary.Count > 0)
             {
                 int nbKey = 0;
-                foreach (KeyValuePair<string, string> element in dictionary)
+                foreach (KeyValuePair<string, LocalizationSystem.LocalizationItem> element in dictionary)
                 {
                     if (element.Key.ToLower().Contains(parent.Key.stringValue.ToLower())
-                    || element.Value.ToLower().Contains(parent.Key.stringValue.ToLower()))
+                    || element.Value.text.ToLower().Contains(parent.Key.stringValue.ToLower()))
                     {
                         EditorGUILayout.BeginHorizontal();
-                        string value = Regex.Replace(element.Value, @"\t|\n|\r", "").Substring(0, Mathf.Min(element.Value.Length, 80));
+                        string value = Regex.Replace(element.Value.text, @"\t|\n|\r", "").Substring(0, Mathf.Min(element.Value.text.Length, 80));
                         GUI.backgroundColor = Color.white * ((nbKey % 2 == 0) ? 0.2f : 0.025f);
                         if (GUILayout.Button(element.Key + "\t\t" + value, buttonStyle, GUILayout.Height(25)))
                         {
                             parent.Key.stringValue = element.Key;
-                            parent.Component.ChangeKey(element.Key);
-                            parent.Component.RefreshEditor(element.Value);
+
+                            TextLocalizerUI textUI = (parent.Component as TextLocalizerUI);
+                            ImageLocalizerUI imageUI = (parent.Component as ImageLocalizerUI);
+
+                            if (textUI)
+                            {
+                                textUI.ChangeKey(element.Key);
+                                textUI.RefreshEditor(element.Value.text);
+                            }
+
+                            if (imageUI)
+                            {
+                                imageUI.ChangeKey(element.Key);
+                                imageUI.RefreshEditor(AssetDatabase.LoadAssetAtPath<Sprite>(element.Value.spritePath));
+                            }
+
                             EditorUtility.SetDirty(parent.Component);
                             Close();
                             break;
@@ -94,7 +117,7 @@ namespace LS.Localiser.Editor
             }
             else
             {
-                EditorUtility.DisplayDialog("Error", "No keys found in " + language.ToString()+" language.", "ok");
+                EditorUtility.DisplayDialog("Error", "No keys found in " + language.ToString() + " language.", "ok");
                 Close();
             }
             EditorGUILayout.EndScrollView();

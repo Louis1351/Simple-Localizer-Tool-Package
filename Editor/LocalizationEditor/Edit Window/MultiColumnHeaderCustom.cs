@@ -16,19 +16,25 @@ namespace LS.Localiser.Editor
             public string key = "";
             public SystemLanguage language;
             public string tags = "";
+            public string textTags = "";
+            public string spriteTags = "";
+            public string clipTags = "";
 
-            public Item(string _key, string _tags, SystemLanguage _language)
+            public Item(string key, string tags, string textTags, string spriteTags, string clipTags, SystemLanguage language)
             {
-                key = _key;
-                tags = _tags;
-                language = _language;
+                this.key = key;
+                this.tags = tags;
+                this.textTags = textTags;
+                this.spriteTags = spriteTags;
+                this.clipTags = clipTags;
+                this.language = language;
             }
         }
         private MultiColumnHeader columnHeader = null;
 
         [SerializeField]
         private TextLocalizerEditWindow window = null;
-        private Dictionary<string, string>[] dictionaries = null;
+        private Dictionary<string, LocalizationSystem.LocalizationItem>[] dictionaries = null;
         private List<Item> items = null;
         private string key = "";
         private Vector2 scrollPos = Vector2.zero;
@@ -52,6 +58,20 @@ namespace LS.Localiser.Editor
                 new MultiColumnHeaderState.Column()
                 {
                     headerContent = new GUIContent("Languages"),
+                    autoResize = true,
+                    headerTextAlignment = TextAlignment.Center,
+                    allowToggleVisibility = false
+                },
+                   new MultiColumnHeaderState.Column()
+                {
+                    headerContent = new GUIContent("Sprite"),
+                    autoResize = true,
+                    headerTextAlignment = TextAlignment.Center,
+                    allowToggleVisibility = false
+                },
+                  new MultiColumnHeaderState.Column()
+                {
+                    headerContent = new GUIContent("Audio"),
                     autoResize = true,
                     headerTextAlignment = TextAlignment.Center,
                     allowToggleVisibility = false
@@ -101,7 +121,7 @@ namespace LS.Localiser.Editor
             GUIContent guiCtRemove = new GUIContent("Remove", "To remove the linked keys to the lanuage files");
             GUIContent guiCtNext = new GUIContent(">", "Next Page");
             GUIContent guiCtPrev = new GUIContent("<", "Previous Page");
-            int nbColumn = 3;
+            int nbColumn = 5;
 
             // draw the column headers
             var headerRect = window.position;
@@ -155,9 +175,15 @@ namespace LS.Localiser.Editor
                             GUI.Label(contentRect, items[j].key);
                             break;
                         case 1:
-                            GUI.Label(contentRect, items[j].tags);
+                            GUI.Label(contentRect, items[j].textTags);
                             break;
                         case 2:
+                            GUI.Label(contentRect, items[j].spriteTags);
+                            break;
+                        case 3:
+                            GUI.Label(contentRect, items[j].clipTags);
+                            break;
+                        case 4:
                             if (GUI.Button(contentRect, guiCtSelect))
                             {
                                 window.ModificationTab.ChangePopup((int)items[j].language);
@@ -181,7 +207,7 @@ namespace LS.Localiser.Editor
 
                     LineRect.y = contentRect.y + 32f;
                     HorizontalLine(LineRect, Color.gray);
-
+                    VerticalLine(LineRect, Color.gray);
                     if (nbKey > 19)
                     {
                         break;
@@ -231,6 +257,21 @@ namespace LS.Localiser.Editor
 
             return height;
         }
+        private void VerticalLine(Rect _rect, Color color)
+        {
+            Rect rect = _rect;
+            rect.y -= 32;
+            GUIStyle verticalLine;
+            verticalLine = new GUIStyle();
+            verticalLine.normal.background = EditorGUIUtility.whiteTexture;
+            verticalLine.fixedWidth = 1;
+
+            var c = GUI.color;
+            GUI.color = color;
+            GUI.Box(rect, GUIContent.none, verticalLine);
+            GUI.color = c;
+        }
+
         private void HorizontalLine(Rect _rect, Color color)
         {
             GUIStyle horizontalLine;
@@ -246,7 +287,7 @@ namespace LS.Localiser.Editor
         }
         public void RefreshDictionaries()
         {
-            dictionaries = new Dictionary<string, string>[window.LanguageTabNames.Length];
+            dictionaries = new Dictionary<string, LocalizationSystem.LocalizationItem>[window.LanguageTabNames.Length];
             items = new List<Item>();
             key = "";
             for (int i = 0; i < dictionaries.Length; ++i)
@@ -255,16 +296,30 @@ namespace LS.Localiser.Editor
                 dictionaries[i] = LocalizationSystem.GetDictionary(l);
                 if (dictionaries[i] != null)
                 {
-                    foreach (KeyValuePair<string, string> elem in dictionaries[i])
+                    foreach (KeyValuePair<string, LocalizationSystem.LocalizationItem> elem in dictionaries[i])
                     {
+                        string Gtag = Translate.FindGoogleTag(l);
                         Item findItem = ContainKey(elem.Key);
                         if (findItem != null)
                         {
-                            findItem.tags += " / " + Translate.FindGoogleTag(l);
+                            findItem.tags += " / " + Gtag;
+
+                            if (elem.Value.text != "")
+                                findItem.textTags += " / " + Gtag;
+
+                            if (elem.Value.spritePath != "")
+                            {
+                                findItem.spriteTags += " / " + Gtag;
+                            }
+
+                            if (elem.Value.clipPath != "")
+                            {
+                                findItem.clipTags += " / " + Gtag;
+                            }
                         }
                         else
                         {
-                            items.Add(new Item(elem.Key, Translate.FindGoogleTag(l), l));
+                            items.Add(new Item(elem.Key, Gtag, (elem.Value.text != "") ? Gtag : "", (elem.Value.spritePath != "") ? Gtag : "", (elem.Value.clipPath != "") ? Gtag : "", l));
                         }
                     }
                 }

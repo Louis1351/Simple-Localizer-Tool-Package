@@ -18,7 +18,7 @@ namespace LS.Localiser.Editor
         private int popupKey = 0;
         private int popupLanguage1 = 0;
         private int popupLanguage2 = 0;
-        private Dictionary<string, string> dictionary;
+        private Dictionary<string, LocalizationSystem.LocalizationItem> dictionary;
         #endregion
 
         public TranslationTab(TextLocalizerEditWindow _window)
@@ -49,7 +49,7 @@ namespace LS.Localiser.Editor
                 keys[0] = "All";
                 int i = 1;
 
-                foreach (KeyValuePair<string, string> entry in dictionary)
+                foreach (KeyValuePair<string, LocalizationSystem.LocalizationItem> entry in dictionary)
                 {
                     keys[i] = entry.Key;
                     i++;
@@ -83,15 +83,15 @@ namespace LS.Localiser.Editor
                         {
                             FileUtils.ClearContentLanguageFile(l2.ToString());
                             float t = 0.0f;
-                            foreach (KeyValuePair<string, string> entry in dictionary)
+                            foreach (KeyValuePair<string, LocalizationSystem.LocalizationItem> entry in dictionary)
                             {
                                 t += 3.0f;
                                 EditorUtility.DisplayProgressBar("Translate Progress Bar", "Translating " + entry.Key + "...", t / estimateTime);
                                 Thread.Sleep(3000);
 
-                                EditorCoroutineUtility.StartCoroutine(Translate.Process(l1, l2, entry.Value, delegate (string value)
+                                EditorCoroutineUtility.StartCoroutine(Translate.Process(l1, l2, entry.Value.text, delegate (string value)
                                 {
-                                    LocalizationSystem.Add(entry.Key, value, l2);
+                                    LocalizationSystem.Add(entry.Key, value, null, null, l2);
                                 }), this);
                             }
                         }
@@ -102,15 +102,15 @@ namespace LS.Localiser.Editor
                             EditorUtility.DisplayProgressBar("Translate Progress Bar", "Translating...", t / estimateTime);
                             Thread.Sleep(3000);
 
-                            EditorCoroutineUtility.StartCoroutine(Translate.Process(l1, l2, dictionary[keys[popupKey]], delegate (string value)
+                            EditorCoroutineUtility.StartCoroutine(Translate.Process(l1, l2, dictionary[keys[popupKey]].text, delegate (string value)
                             {
                                 if (dictionary.ContainsKey(keys[popupKey]))
                                 {
-                                    LocalizationSystem.Replace(keys[popupKey], value, l2);
+                                    LocalizationSystem.Replace(keys[popupKey], value, null, null, l2);
                                 }
                                 else
                                 {
-                                    LocalizationSystem.Add(keys[popupKey], value, l2);
+                                    LocalizationSystem.Add(keys[popupKey], value, null, null, l2);
                                 }
                             }), this);
                         }
