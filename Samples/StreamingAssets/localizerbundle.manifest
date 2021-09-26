@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 2831687700
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 44d894ca3859d74bb0d14862797108d1
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ddeeb3cb0b42c9a8df67181163a6a32b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/BundledAssets/localizerbundle/Sprites/French_Flag.png
+- Assets/BundledAssets/localizerbundle/Sprites/English_Flag.png
+- Assets/BundledAssets/localizerbundle/Audio/Hello.aiff
+- Assets/BundledAssets/localizerbundle/Audio/Salut.mp3
+Dependencies: []

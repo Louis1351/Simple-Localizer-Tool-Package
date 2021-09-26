@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 1379301658
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: localizerbundle
+      Dependencies: {}
