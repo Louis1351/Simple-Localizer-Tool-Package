@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using LS.Localiser.CSV;
-using LS.Localiser.Runtime;
+using LS.Localiser.Runtime.Components;
 using LS.Localiser.Utils;
 using UnityEditor;
 using UnityEngine;

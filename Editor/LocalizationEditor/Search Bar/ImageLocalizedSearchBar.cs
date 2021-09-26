@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEditor;
-using LS.Localiser.Runtime;
 using LS.Localiser.CSV;
 using LS.Localiser.Utils;
+using LS.Localiser.Runtime.Components;
 
 namespace LS.Localiser.Editor
 {

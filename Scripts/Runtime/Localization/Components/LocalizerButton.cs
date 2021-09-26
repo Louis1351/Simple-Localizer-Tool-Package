@@ -2,7 +2,7 @@ using LS.Localiser.CSV;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace LS.Localiser.Runtime
+namespace LS.Localiser.Runtime.Components
 {
     public class LocalizerButton : MonoBehaviour
     {

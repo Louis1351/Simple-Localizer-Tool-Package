@@ -1,5 +1,5 @@
 using UnityEditor;
-using LS.Localiser.Runtime;
+using LS.Localiser.Runtime.Components;
 
 namespace LS.Localiser.Editor
 {

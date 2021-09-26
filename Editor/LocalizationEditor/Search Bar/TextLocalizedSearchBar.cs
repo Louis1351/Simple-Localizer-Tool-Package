@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEditor;
-using LS.Localiser.Runtime;
+using LS.Localiser.Runtime.Components;
 using LS.Localiser.CSV;
 using LS.Localiser.Utils;
 

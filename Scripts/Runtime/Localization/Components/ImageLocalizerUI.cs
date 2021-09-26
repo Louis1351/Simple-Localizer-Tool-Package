@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using LS.Localiser.CSV;
 
-namespace LS.Localiser.Runtime
+namespace LS.Localiser.Runtime.Components
 {
     public class ImageLocalizerUI : LocalizerUI
     {

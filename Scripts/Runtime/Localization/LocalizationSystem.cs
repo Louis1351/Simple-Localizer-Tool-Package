@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using LS.Localiser.Utils;
-using LS.Localiser.Runtime;
 using System;
+using LS.Localiser.Runtime.Components;
 
 namespace LS.Localiser.CSV
 {
