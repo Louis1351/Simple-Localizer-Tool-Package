@@ -5,6 +5,17 @@
   "description": "A simple tool for the text localization (using google api for the translation)",
   "unity": "2020.3",
   "unityRelease": "0f1",
+  "type": "tool",
+  "keywords": [
+    "tools",
+    "localization",
+    "csv",
+    "translation"
+  ],
+  "dependencies": {
+    "com.unity.editorcoroutines": "1.0.0",
+    "com.unity.textmeshpro": "3.0.1"
+  },
   "samples": [
     {
       "displayName": "Demo Scene with two languages already set",
@@ -12,20 +23,9 @@
       "path": "Samples~/LocalizationSample"
     }
   ],
-  "dependencies": {
-    "com.unity.editorcoroutines": "1.0.0",
-    "com.unity.textmeshpro": "3.0.1"
-  },
-  "keywords": [
-    "tools",
-    "localization",
-    "csv",
-    "translation"
-  ],
   "author": {
     "name": "Louis SIANI",
     "company": "Quokka Indie Studio",
     "url": "https://www.quokkaindiestudio.com"
-  },
-  "type": "tool"
+  }
 }
