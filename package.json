@@ -9,7 +9,7 @@
     {
       "displayName": "Demo Scene",
       "description": "Contains sample scene changing text in game.",
-      "path": "Samples~/Scenes"
+      "path": "Samples~/LocalizationSample"
     }
   ],
   "dependencies": {
