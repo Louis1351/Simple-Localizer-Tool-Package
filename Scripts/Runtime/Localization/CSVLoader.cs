@@ -43,22 +43,15 @@ namespace LS.Localiser.CSV
                 if (line != "")
                 {
                     string[] fields = line.Split(separators, StringSplitOptions.None);
+                    if (fields.Length == 4)
+                    {
+                        string key = fields[0].TrimStart('\r', '\n', '\"');
+                        string text = fields[1].TrimEnd('\r', '\n', '\"', ';');
+                        string spritepath = fields[2].TrimEnd('\r', '\n', '\"', ';');
+                        string audiopath = fields[3].TrimEnd('\r', '\n', '\"', ';');
 
-                    string key = fields[0].TrimStart('\r', '\n', '\"');
-                    string text = fields[1].TrimEnd('\r', '\n', '\"', ';');
-                    string spritepath = fields[2].TrimEnd('\r', '\n', '\"', ';');
-                    string audiopath = fields[3].TrimEnd('\r', '\n', '\"', ';');
-
-
-                  /*  AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, bundleName));
-                    AudioClip clip = localAssetBundle.LoadAsset<AudioClip>("");
-                    Sprite sprite = localAssetBundle.LoadAsset<Sprite>("");*/
-
-                    /*  AudioClip clip = (AudioClip)AssetDatabase.LoadAssetAtPath(audiopath, typeof(AudioClip));
-                      Sprite sprite = (Sprite)AssetDatabase.LoadAssetAtPath(spritepath, typeof(Sprite));*/
-
-                    dictionary.Add(key, new LocalizationSystem.LocalizationItem(text, spritepath, audiopath));
-                   // localAssetBundle.Unload(false);
+                        dictionary.Add(key, new LocalizationSystem.LocalizationItem(text, spritepath, audiopath));
+                    }
                 }
             }
 
