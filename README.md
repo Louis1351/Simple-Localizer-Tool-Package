@@ -5,7 +5,7 @@
 ![Install Package](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_1.png)
 ### More Details
 # CSV Edition
-
+![Assets Bundle Creation](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_2.png)
 ### Spreadsheet
 ![Spreadsheet](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_7.png)
 
