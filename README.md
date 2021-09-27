@@ -1,8 +1,8 @@
 # Simple-Localizer-tool
  A simple tool for the text localization (using google api to translate)
  
-# How to install
-
+# How to install<h3>
+### More Details
 ![](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_1.png)
 ![](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_2.png)
 ![](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_3.png)
