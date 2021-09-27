@@ -2,7 +2,7 @@
  A simple tool for the text localization (using google api to translate)
  
 # Table of contents
-* [How to install]
+* [How to install](#general-info)
 * [CSV Edition]
 * [Components]
 * [In Code]
