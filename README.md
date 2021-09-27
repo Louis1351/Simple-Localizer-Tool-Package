@@ -40,6 +40,12 @@
 
 ![AutoLanguage Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_11.png)
 # In Code
+```csharp
+for (int i = 0 ; i < 10; i++)
+{
+// Code to execute.
+}
+```
 
 
 
