@@ -5,7 +5,7 @@
 * [How to install](#general-info)
 * [CSV Edition](#general-info)
 * [Components](#general-info)
-* [In Code](#general-info)
+* [In Code](# In Code)
 
 # How to install
 ![Install Package](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_1.png)
