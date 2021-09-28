@@ -2,10 +2,12 @@
  A simple tool for the text localization (using google api to translate)
  
 # Table of contents
-* [How to install](#general-info)
-* [CSV Edition](#general-info)
+* [How to install](#HowTo)
+* [CSV Edition](#CSV)
 * [Components](#general-info)
 * [In Code](#InCode)
+
+<a name="HowTo"/>
 
 # How to install
 ![Install Package](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_1.png)
@@ -17,6 +19,8 @@
 
 ### More Details
 ![Demo](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_3.png)
+
+<a name="CSV"/>
 
 # CSV Edition
 ![Assets Bundle Creation](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_2.png)
@@ -41,6 +45,7 @@
 ![AutoLanguage Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_11.png)
 
 <a name="InCode"/>
+
 # In Code
 ```csharp
 for (int i = 0 ; i < 10; i++)
