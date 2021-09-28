@@ -58,12 +58,18 @@ namespace LS.Localiser.Editor
                 ImageLocalizerUI imageUI = (parent.Component as ImageLocalizerUI);
 
                 if (textUI)
+                {
                     textUI.RefreshEditor(item.text);
+                    EditorUtility.SetDirty(textUI);
+                }
 
                 if (imageUI)
+                {
                     imageUI.RefreshEditor(AssetDatabase.LoadAssetAtPath<Sprite>(item.spritePath));
+                    EditorUtility.SetDirty(imageUI);
+                }
 
-                EditorUtility.SetDirty(parent.Component);
+
                 GUI.FocusControl(null);
             }
 
@@ -96,15 +102,16 @@ namespace LS.Localiser.Editor
                             {
                                 textUI.ChangeKey(element.Key);
                                 textUI.RefreshEditor(element.Value.text);
+                                EditorUtility.SetDirty(textUI);
                             }
 
                             if (imageUI)
                             {
                                 imageUI.ChangeKey(element.Key);
                                 imageUI.RefreshEditor(AssetDatabase.LoadAssetAtPath<Sprite>(element.Value.spritePath));
+                                EditorUtility.SetDirty(imageUI);
                             }
 
-                            EditorUtility.SetDirty(parent.Component);
                             Close();
                             break;
                         }

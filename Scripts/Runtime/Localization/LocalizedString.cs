@@ -1,4 +1,3 @@
-
 using System.IO;
 using UnityEngine;
 
@@ -18,6 +17,10 @@ namespace LS.Localiser.CSV
 
 
         #region Accessors
+        /// <summary>
+        /// Get the text value from the dictionary.
+        /// </summary>
+        /// <returns>Returns a string</returns>
         public string textValue
         {
             get
@@ -25,26 +28,64 @@ namespace LS.Localiser.CSV
                 return LocalizationSystem.GetLocalisedValue(key).text;
             }
         }
+        /// <summary>
+        /// Get the sprite value from the Asset Bundle.
+        /// </summary>
+        /// <returns>Returns a Sprite</returns>
         public Sprite spriteValue
         {
             get
             {
-                AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, "localizerbundle"));
-                Sprite sprite = localAssetBundle.LoadAsset<Sprite>(LocalizationSystem.GetLocalisedValue(key).spritePath);
-                localAssetBundle.Unload(false);
+                Sprite sprite = null;
+                string path = LocalizationSystem.GetLocalisedValue(key).spritePath;
+
+                if (path != "")
+                {
+                    if (Application.isPlaying)
+                    {
+                        AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, "localizerbundle"));
+                        sprite = localAssetBundle.LoadAsset<Sprite>(path);
+                        localAssetBundle.Unload(false);
+                    }
+                    else
+                    {
+#if UNITY_EDITOR
+                        sprite = (Sprite)UnityEditor.AssetDatabase.LoadAssetAtPath(path, typeof(Sprite));
+#endif
+                    }
+                }
+
                 return sprite;
-                //  return LocalizationSystem.GetLocalisedValue(key).sprite;
             }
         }
+        /// <summary>
+        /// Get the AudioClip value from the Asset Bundle.
+        /// </summary>
+        /// <returns>Returns an AudioClip</returns>
         public AudioClip clipValue
         {
             get
             {
-                AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, "localizerbundle"));
-                AudioClip clip = localAssetBundle.LoadAsset<AudioClip>(LocalizationSystem.GetLocalisedValue(key).clipPath);
-                localAssetBundle.Unload(false);
+                AudioClip clip = null;
+                string path = LocalizationSystem.GetLocalisedValue(key).clipPath;
+
+                if (path != "")
+                {
+                    if (Application.isPlaying)
+                    {
+                        AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, "localizerbundle"));
+                        clip = localAssetBundle.LoadAsset<AudioClip>(path);
+                        localAssetBundle.Unload(false);
+                    }
+                    else
+                    {
+#if UNITY_EDITOR
+                        clip = (AudioClip)UnityEditor.AssetDatabase.LoadAssetAtPath(path, typeof(AudioClip));
+#endif
+                    }
+                }
+
                 return clip;
-                // return LocalizationSystem.GetLocalisedValue(key).clip;
             }
         }
         #endregion

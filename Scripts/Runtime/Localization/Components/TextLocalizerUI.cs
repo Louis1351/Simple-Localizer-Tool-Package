@@ -5,7 +5,7 @@ using LS.Localiser.CSV;
 
 namespace LS.Localiser.Runtime.Components
 {
-    public class TextLocalizerUI : LocalizerUI
+    public class TextLocalizerUI : MonoBehaviour, LocalizerUI
     {
 
         #region Public Fields

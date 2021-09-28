@@ -48,7 +48,12 @@ namespace LS.Localiser.CSV
 
 
         #region Public Methods
-        public static void ChangeLanguage(SystemLanguage language)
+        /// <summary>
+        /// Change the language in game. 
+        /// </summary>
+        /// <param name="language">SystemLanguage to pass.</param>
+        /// <param name="callback">Callback to execute if the dictionary has been loaded.</param>
+        public static void ChangeLanguage(SystemLanguage language, Action callback = null)
         {
             Dictionary<string, LocalizationItem> tmpDictionnary = null;
 
@@ -62,8 +67,14 @@ namespace LS.Localiser.CSV
             RefreshSceneImages();
 
             PlayerPrefs.SetInt("language", (int)useLanguage);
-        }
 
+            if (callback != null)
+                callback.Invoke();
+        }
+        /// <summary>
+        /// Change the next language in game.(Order by the enum SystemLanguage ) 
+        /// </summary>
+        /// <param name="callback">Callback to execute if the dictionary has been loaded.</param>
         public static void ChangeToNextLanguage(Action callback = null)
         {
             Dictionary<string, LocalizationItem> tmpDictionnary = null;
@@ -88,8 +99,11 @@ namespace LS.Localiser.CSV
             if (callback != null)
                 callback.Invoke();
         }
-
-        public static void ChangeToPreviousLanguage()
+        /// <summary>
+        /// Change the previous language in game.(Order by the enum SystemLanguage )
+        /// </summary>
+        /// <param name="callback">Callback to execute if the dictionary has been loaded.</param>
+        public static void ChangeToPreviousLanguage(Action callback = null)
         {
             Dictionary<string, LocalizationItem> tmpDictionnary = null;
             int nbTries = 0;
@@ -114,8 +128,14 @@ namespace LS.Localiser.CSV
             RefreshSceneImages();
 
             PlayerPrefs.SetInt("language", (int)useLanguage);
-        }
 
+            if (callback != null)
+                callback.Invoke();
+        }
+        /// <summary>
+        /// Initialize the dictionary if it hasnt already been load from the CSV file. 
+        /// </summary>
+        /// <param name="language">SystemLanguage to pass.</param>
         public static void InitializeCSV(SystemLanguage _language)
         {
             if (csvLoader == null)
@@ -130,7 +150,9 @@ namespace LS.Localiser.CSV
             }
             //      UpdateDictionary(_language);
         }
-
+        /// <summary>
+        /// Auto Selection language thanks to Application.systemLanguage. 
+        /// </summary>
         public static void AutoSelectLanguage()
         {
             useLanguage = Application.systemLanguage;
@@ -143,7 +165,10 @@ namespace LS.Localiser.CSV
             RefreshSceneTexts();
             RefreshSceneImages();
         }
-
+        /// <summary>
+        /// Override the dictionary with the CSV file. 
+        /// </summary>
+        /// <param name="language">SystemLanguage to pass.</param>
         private static void UpdateDictionary(SystemLanguage language)
         {
             dictionaries[language] = csvLoader.GetDictionaryValues(language);
@@ -154,7 +179,12 @@ namespace LS.Localiser.CSV
                 FileUtils.RemoveContentLanguageFile(language.ToString());
             }
         }
-
+        /// <summary>
+        /// Get the informations about the key.
+        /// </summary>
+        /// <param name="key">CSV Key to pass.</param>
+        /// <param name="language">SystemLanguage to pass.</param>
+        /// <returns>Returns LocalizationItem. (text, Sprite Path, AudioCilp Path)</returns>
         public static LocalizationItem GetLocalisedValue(string key, SystemLanguage language)
         {
             LocalizationItem value = new LocalizationItem();
@@ -168,6 +198,12 @@ namespace LS.Localiser.CSV
             }
             return value;
         }
+        /// <summary>
+        /// Checks if the key exists in the corresponding language.
+        /// </summary>
+        /// <param name="key">CSV Key to pass.</param>
+        /// <param name="language">SystemLanguage to pass.</param>
+        /// <returns>Returns true if the key exists in the dictionary</returns>
         public static bool ContainKey(string key, SystemLanguage language)
         {
             if (dictionaries != null && dictionaries[language] != null)
@@ -176,7 +212,11 @@ namespace LS.Localiser.CSV
             }
             return false;
         }
-
+        /// <summary>
+        /// Get the informations about the key.
+        /// </summary>
+        /// <param name="key">CSV Key to pass.</param>
+        /// <returns>Returns LocalizationItem. (text, Sprite Path, AudioCilp Path)</returns>
         public static LocalizationItem GetLocalisedValue(string key)
         {
             LocalizationItem value = new LocalizationItem();
@@ -212,6 +252,14 @@ namespace LS.Localiser.CSV
             }
             return value;
         }
+        /// <summary>
+        /// Add new CSV Key in the Language file. 
+        /// </summary>
+        /// <param name="key">CSV Key to pass.</param>
+        /// <param name="value">Text value to pass.</param>
+        /// <param name="spritePath">Sprite Path to pass.</param>
+        /// <param name="audioPath">AudioClip Path to pass.</param>
+        /// <param name="language">SystemLanguage to pass.</param>
         public static void Add(string key, string value, string spritePath, string audioPath, SystemLanguage language)
         {
             if (key == "")
@@ -233,7 +281,14 @@ namespace LS.Localiser.CSV
 #endif
             UpdateDictionary(language);
         }
-
+        /// <summary>
+        /// Override CSV Key in the Language file. 
+        /// </summary>
+        /// <param name="key">CSV Key to pass.</param>
+        /// <param name="value">Text value to pass.</param>
+        /// <param name="spritePath">Sprite Path to pass.</param>
+        /// <param name="audioPath">AudioClip Path to pass.</param>
+        /// <param name="language">SystemLanguage to pass.</param>
         public static void Replace(string key, string value, string spritePath, string audioPath, SystemLanguage language)
         {
             if (key == "")
@@ -256,7 +311,11 @@ namespace LS.Localiser.CSV
 
             UpdateDictionary(language);
         }
-
+        /// <summary>
+        /// Remove CSV Key in the Language file. 
+        /// </summary>
+        /// <param name="key">CSV Key to pass.</param>
+        /// <param name="language">SystemLanguage to pass.</param>
         public static void Remove(string key, SystemLanguage language)
         {
             if (key == "")
@@ -274,7 +333,11 @@ namespace LS.Localiser.CSV
 
             UpdateDictionary(language);
         }
-
+        /// <summary>
+        /// Get the dictionary corresponding to the language.
+        /// </summary>
+        /// <param name="language">SystemLanguage to pass.</param>
+        /// <returns>Returns a dictionnary of LocalizationItem. (text, Sprite Path, AudioCilp Path)</returns>
         public static Dictionary<string, LocalizationItem> GetDictionary(SystemLanguage language)
         {
             InitializeCSV(language);
@@ -284,7 +347,10 @@ namespace LS.Localiser.CSV
             else
                 return dictionaries[language];
         }
-
+        /// <summary>
+        /// Get the dictionary corresponding to the language.
+        /// </summary>
+        /// <returns>Returns a dictionnary of LocalizationItem. (text, Sprite Path, AudioCilp Path)</returns>
         public static Dictionary<string, LocalizationItem> GetDictionary()
         {
             InitializeCSV(useLanguage);
@@ -295,7 +361,9 @@ namespace LS.Localiser.CSV
                 return dictionaries[useLanguage];
         }
         #endregion
-
+        /// <summary>
+        /// Refreshs all the texts in the scene. 
+        /// </summary>
         private static void RefreshSceneTexts()
         {
             TextLocalizerUI[] components = Resources.FindObjectsOfTypeAll<TextLocalizerUI>();
@@ -304,6 +372,9 @@ namespace LS.Localiser.CSV
                 components[i].Refresh();
             }
         }
+        /// <summary>
+        /// Refreshs all the sprites/images in the scene. 
+        /// </summary>
         private static void RefreshSceneImages()
         {
             ImageLocalizerUI[] components = Resources.FindObjectsOfTypeAll<ImageLocalizerUI>();

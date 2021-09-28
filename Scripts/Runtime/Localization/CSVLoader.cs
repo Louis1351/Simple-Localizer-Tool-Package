@@ -26,6 +26,11 @@ namespace LS.Localiser.CSV
 
 
         #region Public Methods
+        /// <summary>
+        /// Returns a dictionary with the corresponding language.
+        /// </summary>
+        /// <param name="language">The dictionary's language.</param>
+        /// <returns>Returns a dictionnary of LocalizationItem. (text, Sprite Path, AudioCilp Path)</returns>
         public Dictionary<string, LocalizationSystem.LocalizationItem> GetDictionaryValues(SystemLanguage language)
         {
             TextAsset csvFile = Resources.Load<TextAsset>("Languages/" + language.ToString());
@@ -59,6 +64,14 @@ namespace LS.Localiser.CSV
         }
 
 #if UNITY_EDITOR
+        /// <summary>
+        /// Add new CSV Key in the Language file. 
+        /// </summary>
+        /// <param name="key">CSV Key to pass.</param>
+        /// <param name="value">Text value to pass.</param>
+        /// <param name="spritePath">Sprite Path to pass.</param>
+        /// <param name="audioPath">AudioClip Path to pass.</param>
+        /// <param name="language">SystemLanguage to pass.</param>
         public void Add(string key, string value, string spritePath, string audioPath, SystemLanguage language)
         {
             TextAsset csvFile = Resources.Load<TextAsset>("Languages/" + language.ToString());
@@ -76,7 +89,11 @@ namespace LS.Localiser.CSV
 
             UnityEditor.AssetDatabase.Refresh();
         }
-
+        /// <summary>
+        /// Remove CSV Key in the Language file. 
+        /// </summary>
+        /// <param name="key">CSV Key to pass.</param>
+        /// <param name="language">SystemLanguage to pass.</param>
         public void Remove(string key, SystemLanguage language)
         {
             TextAsset csvFile = Resources.Load<TextAsset>("Languages/" + language.ToString());
@@ -114,7 +131,14 @@ namespace LS.Localiser.CSV
                 UnityEditor.AssetDatabase.Refresh();
             }
         }
-
+        /// <summary>
+        /// Edit CSV Key in the Language file. 
+        /// </summary>
+        /// <param name="key">CSV Key to pass.</param>
+        /// <param name="value">Text value to pass.</param>
+        /// <param name="spritePath">Sprite Path to pass.</param>
+        /// <param name="audioPath">AudioClip Path to pass.</param>
+        /// <param name="language">SystemLanguage to pass.</param>
         public void Edit(string key, string value, string spritePath, string audioPath, SystemLanguage language)
         {
             Remove(key, language);
