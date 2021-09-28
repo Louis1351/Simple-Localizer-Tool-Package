@@ -4,7 +4,7 @@
 # Table of contents
 * [How to install](#HowTo)
 * [CSV Edition](#CSV)
-* [Components](#general-info)
+* [Components](#Components)
 * [In Code](#InCode)
 
 <a name="HowTo"/>
@@ -36,6 +36,8 @@
 
 ### Settings
 ![Settings](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_10.png)
+
+<a name="Components"/>
 
 # Components
 ![Image Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_4.png)
