@@ -1,5 +1,6 @@
 # Simple-Localizer-tool
- A simple tool for the text localization (using google api to translate)
+ A simple and easy tool for the Text/Sprite/Audio localization. (using google api to translate)
+ The assets are currently load from an Asset Bundle.
  
 # Table of contents
 * [How to install](#HowTo)
