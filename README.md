@@ -50,7 +50,9 @@ Go to Localization > Edit
 
 ### Spreadsheet
 In the spreadsheet, we can see all the CSV key for each language.<br>
-If a tag's language shows up in one of this column, it means for example
+If a tag's language shows up in one of this column, it means it 's already setup.<br>
+For example here, for the flag key the sprite is set for French and English language.<br>
+We can remove a key from all the CSV files or select a key to modify.
 
 ![Spreadsheet](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_7.png)
 
