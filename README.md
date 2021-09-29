@@ -31,10 +31,13 @@ Select the folder and add an asset bundle with the name localizerbundle.
 
 ![localizerbundle2](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_12.png)
 
-Now we can add some asset into this folder.(Srite Texture and AudioClip)<br>
+Now we can add some asset into this folder.(Sprite Texture and AudioClip)<br>
 <b>Warning!! Each time you add files, you have to rebuild the AssetBundles.</b>
 
 ### More Details
+
+For more example, add the demo scene into your project.
+
 ![Demo](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_3.png)
 
 <a name="CSV"/>
