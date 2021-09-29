@@ -68,6 +68,8 @@ Add/Replace/Remove the key fom the select language.
 ![Modification](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_8.png)
 
 ### Translation
+Can translate one or multiple key from one language to another (Thanks to the Google API).
+
 ![Translation](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_9.png)
 
 ### Settings
