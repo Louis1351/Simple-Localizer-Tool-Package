@@ -57,6 +57,7 @@ We can remove a key from all the CSV files or select a key to modify.
 ![Spreadsheet](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_7.png)
 
 ### Modification
+Language -> Select the language to Edit.<br>
 Search key -> Add new key or select a key already created.<br>
 Sprite -> Select Sprite from the localizerbundle.<br>
 Audio Clip -> Select Audio Clip from the localizerbundle.<br>
