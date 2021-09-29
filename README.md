@@ -36,7 +36,7 @@ Now we can add some asset into this folder.(Sprite Texture and AudioClip)<br>
 
 ### More Details
 
-For more example, add the demo scene into your project.
+For more example, you can add the demo scene into your project.
 
 ![Demo](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_3.png)
 
