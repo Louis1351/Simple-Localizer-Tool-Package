@@ -102,10 +102,12 @@ Add AutoLanguage Component allows to change automatically the language to your c
 
 # In Code
 ```csharp
-for (int i = 0 ; i < 10; i++)
-{
-// Code to execute.
-}
+string key = "myKey";
+LocalizedString localizedStringStr = new LocalizedString(key);
+
+textComp.text = localizedStringStr.textValue;
+Sprite sprite = localizedStringStr.spriteValue;
+AudioClip audioClip = localizedStringStr.clipValue;
 ```
 
 # To Do
