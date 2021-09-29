@@ -107,6 +107,7 @@ public class NewBehaviourScript : MonoBehaviour
 {
     void Start()
     {
+         //Set and Get a key
          string key = "myKey";
          LocalizedString localizedStringStr = new LocalizedString(key);
 
@@ -138,7 +139,16 @@ public class NewBehaviourScript : MonoBehaviour
     }
 }
 ```
-
+```csharp
+using LS.Localiser.CSV;
+public class NewBehaviourScript : MonoBehaviour
+{
+    void Start()
+    {
+        LocalizationSystem.AutoSelectLanguage();
+    }
+}
+```
 # To Do
 
 
