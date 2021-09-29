@@ -102,12 +102,19 @@ Add AutoLanguage Component allows to change automatically the language to your c
 
 # In Code
 ```csharp
+using LS.Localiser.CSV;
+public class NewBehaviourScript : MonoBehaviour
+{
+ void Start()
+    {
 string key = "myKey";
 LocalizedString localizedStringStr = new LocalizedString(key);
 
 textComp.text = localizedStringStr.textValue;
 Sprite sprite = localizedStringStr.spriteValue;
 AudioClip audioClip = localizedStringStr.clipValue;
+}
+}
 ```
 
 # To Do
