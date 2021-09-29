@@ -2,7 +2,7 @@
   "name": "com.ls.simplelocalizertool",
   "version": "1.2.3",
   "displayName": "Simple Localizer Tool",
-  "description": "A simple and easy edit tool for the Text/Sprite/Audio localization. (using google api to translate)\n Can create mutiple CSV files for each language in the Resource folder.\n The assets are currently load from an Asset Bundle.",
+  "description": "A simple and easy edit tool for the Text/Sprite/Audio localization. (using google api to translate)\n\nCan create mutiple CSV files for each language in the Resource folder.\n\nThe assets are currently load from an Asset Bundle.",
   "unity": "2020.3",
   "unityRelease": "0f1",
   "type": "tool",
