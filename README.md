@@ -97,6 +97,8 @@ Add AutoLanguage Component allows to change automatically the language to your c
 
 ![AutoLanguage Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_11.png)
 
+Add LocalizerButton on a Button to Change Language.
+
 
 <a name="InCode"/>
 
@@ -107,7 +109,7 @@ public class NewBehaviourScript : MonoBehaviour
 {
     void Start()
     {
-         //Set and Get a key
+         //Set and Get a key's informations
          string key = "myKey";
          LocalizedString localizedStringStr = new LocalizedString(key);
 
@@ -145,7 +147,11 @@ public class NewBehaviourScript : MonoBehaviour
 {
     void Start()
     {
+        //Set Language to your current language's system
         LocalizationSystem.AutoSelectLanguage();
+        
+        //Change Language
+        LocalizationSystem.ChangeToNextLanguage()
     }
 }
 ```
