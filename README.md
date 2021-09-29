@@ -57,6 +57,10 @@ We can remove a key from all the CSV files or select a key to modify.
 ![Spreadsheet](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_7.png)
 
 ### Modification
+Language 
+Sprite
+Audio Clip
+Text
 ![Modification](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_8.png)
 
 ### Translation
