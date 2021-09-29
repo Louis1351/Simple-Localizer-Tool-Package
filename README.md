@@ -13,6 +13,7 @@
 # How to install
 Go to Window > Package Manager > Add package from URL... <br>
 Add this url https://github.com/Louis1351/Simple-Localizer-Tool-Package.git
+
 ![Install Package](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_1.png)
 
 ### Create Asset Bundles
