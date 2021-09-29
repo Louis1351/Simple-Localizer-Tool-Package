@@ -73,6 +73,9 @@ Can translate one or multiple key from one language to another (Thanks to the Go
 ![Translation](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_9.png)
 
 ### Settings
+Default Language -> Select the language to use in the editor. It also set this language as default for the game.<br>
+File Format -> Only CSV Format for the moment.
+
 ![Settings](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_10.png)
 
 <a name="Components"/>
@@ -93,6 +96,8 @@ for (int i = 0 ; i < 10; i++)
 // Code to execute.
 }
 ```
+
+# To Do
 
 
 
