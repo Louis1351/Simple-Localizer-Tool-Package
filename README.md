@@ -49,6 +49,9 @@ Go to Localization > Edit
 ![Assets Bundle Creation](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_2.png)
 
 ### Spreadsheet
+In the spreadsheet, we can see all the CSV key for each language.<br>
+If a tag's language shows up in one of this column, it means for example
+
 ![Spreadsheet](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_7.png)
 
 ### Modification
