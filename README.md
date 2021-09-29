@@ -93,11 +93,10 @@ Find Key -> Assign the key to the component.
 
 ![Key Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_6.png)
 
-
+Add AutoLanguage Component allows to change automatically the language of your system.<br>
 
 ![AutoLanguage Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_11.png)
 
-AutoLanguage
 
 <a name="InCode"/>
 
