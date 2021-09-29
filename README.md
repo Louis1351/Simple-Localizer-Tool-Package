@@ -150,8 +150,14 @@ public class NewBehaviourScript : MonoBehaviour
         //Set Language to your current language's system
         LocalizationSystem.AutoSelectLanguage();
         
+        //Change to next Language
+        LocalizationSystem.ChangeToNextLanguage();
+        
+        //Change to previous Language
+        LocalizationSystem.ChangeToPreviousLanguage();
+        
         //Change Language
-        LocalizationSystem.ChangeToNextLanguage()
+        LocalizationSystem.ChangeLanguage(SystemLanguage.English);
     }
 }
 ```
