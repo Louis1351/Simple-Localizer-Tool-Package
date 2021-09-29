@@ -18,8 +18,11 @@ Add this url https://github.com/Louis1351/Simple-Localizer-Tool-Package.git
 ![Install Package](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_1.png)
 
 ### Create Asset Bundles
-Before to add some CSV key with an asset in it, 
+Before to add some CSV key with an asset in it, we have to generate the Streaming Assets and the Bundled Assets folder.
+Go to Localization > Build AssetBundles
+ 
 ![Assets Bundle Creation](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_2.png)
+
 ![localizerbundle1](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_13.png)
 ![localizerbundle2](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_12.png)
 
