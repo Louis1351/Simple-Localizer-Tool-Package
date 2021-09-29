@@ -43,6 +43,9 @@ For more example, you can add the demo scene into your project.
 <a name="CSV"/>
 
 # CSV Edition
+To open the edition window <br>
+Go to Localization > Edit
+
 ![Assets Bundle Creation](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_2.png)
 
 ### Spreadsheet
