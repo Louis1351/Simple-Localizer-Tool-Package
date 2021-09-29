@@ -23,7 +23,12 @@ Go to Localization > Build AssetBundles
  
 ![Assets Bundle Creation](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_2.png)
 
+Under the  BundledAssets folder, we can find the localizerbundle folder.
+
 ![localizerbundle1](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_13.png)
+
+Select the folder and add an asset bundle with the name localizerbundle.
+
 ![localizerbundle2](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_12.png)
 
 ### More Details
