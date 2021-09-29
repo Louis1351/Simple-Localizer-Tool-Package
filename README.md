@@ -107,12 +107,34 @@ public class NewBehaviourScript : MonoBehaviour
 {
     void Start()
     {
-        string key = "myKey";
-        LocalizedString localizedStringStr = new LocalizedString(key);
+         string key = "myKey";
+         LocalizedString localizedStringStr = new LocalizedString(key);
 
-        textComp.text = localizedStringStr.textValue;
-        Sprite sprite = localizedStringStr.spriteValue;
-        AudioClip audioClip = localizedStringStr.clipValue;
+         textComp.text = localizedStringStr.textValue;
+         Sprite sprite = localizedStringStr.spriteValue;
+         AudioClip audioClip = localizedStringStr.clipValue;
+    }
+}
+```
+```csharp
+using LS.Localiser.Runtime.Components;
+public class NewBehaviourScript : MonoBehaviour
+{
+    void Start()
+    {
+        ImageLocalizerUI imageLocalizer = GetComponent<ImageLocalizerUI>();
+        string myKeyImg = imageLocalizer.GetKey();
+        Sprite sprite = imageLocalizer.GetSprite();
+       
+        //Change the current Key
+        imageLocalizer.ChangeKey("myKey");
+
+        TextLocalizerUI textLocalizerUI = GetComponent<TextLocalizerUI>();
+        string myKeyTxt = textLocalizerUI.GetKey();
+        AudioClip audioClip = textLocalizerUI.GetClip();
+
+        //Change the current Key
+        textLocalizerUI.ChangeKey("myKey");
     }
 }
 ```
