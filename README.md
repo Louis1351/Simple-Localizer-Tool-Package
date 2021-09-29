@@ -81,17 +81,19 @@ File Format -> Only CSV Format for the moment.
 <a name="Components"/>
 
 # Components
-![Image Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_4.png)
-
 ImageLocalizerUI to initialize SpriteRenderer and Image.
 
-![Text Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_5.png)
+![Image Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_4.png)
 
 TextLocalizer  to initialize Text and TextMesProUGUI.
 
-![Key Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_6.png)
+![Text Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_5.png)
 
 Assign the key to the component.
+
+![Key Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_6.png)
+
+
 
 ![AutoLanguage Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_11.png)
 
