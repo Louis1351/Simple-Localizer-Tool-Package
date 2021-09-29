@@ -89,7 +89,7 @@ TextLocalizer  to initialize Text and TextMesProUGUI.
 
 ![Text Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_5.png)
 
-Assign the key to the component.
+Find Key -> Assign the key to the component.
 
 ![Key Component](https://github.com/Louis1351/Simple-Localizer-Tool-Package/blob/main/tutorials/Screenshot_6.png)
 
