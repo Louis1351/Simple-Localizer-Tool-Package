@@ -1,5 +1,5 @@
 # Simple-Localizer-tool
- A simple and easy edit tool for the Text/Sprite/Audio localization. (using google api to translate)<br>
+ A simple and easy edit tool for the Text/Sprite/Audio localization in Unity. (using google api to translate)<br>
  Can create mutiple CSV files for each language in the Resource folder.<br>
  The assets are currently load from an Asset Bundle.
  
